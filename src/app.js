@@ -4,10 +4,10 @@ express = require('express');
 
 app = express();
 
-port = 5000;
+port = process.env.PORT || 5000;
 
 app.get('/', function(req, res) {
-  return res.send('Hello World!');
+  return res.send('Hei World coffee!');
 });
 
 app.listen(port, function(err) {

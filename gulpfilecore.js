@@ -19,6 +19,7 @@ gulp.task('coffee', function() {
 });
 
 gulp.task('watch', function() {
+  gulp.start('coffee');
   return gulp.watch(coffeeFiles, ['coffee']);
 });
 
@@ -32,4 +33,15 @@ gulp.task('serve', ['watch'], function() {
   return nodemon(options).on('restart', function(ev) {
     return console.log('Restarting...');
   });
+});
+
+gulp.task('inject', function() {
+  var options, wiredep;
+  wiredep = require('wiredep').stream;
+  options = {
+    bowerJson: require('./bower.json'),
+    directory: './public/lib',
+    ignorePath: '../../public'
+  };
+  return gulp.src('./src/views/.*pug').pipe(wiredep(options)).pipe(gulp.dest('./src/views'));
 });

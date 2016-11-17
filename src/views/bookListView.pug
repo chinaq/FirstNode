@@ -1,0 +1,15 @@
+extends layout.pug
+
+block content
+	.ui.container
+		h1 All Books Here!
+		.ui.celled.grid
+			each book in books
+				.row
+					.three.wide.center.aligned.column
+						img.ui.middle.aligned.tiny.image(
+							src=book.cover)
+					.thirteen.wide.middle.aligned.column
+						h3
+							a(href="/books/" + encodeURIComponent(book.id))=book.title
+						div=book.author

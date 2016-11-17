@@ -8,7 +8,7 @@ watch = require('gulp-watch');
 
 nodemon = require('gulp-nodemon');
 
-coffeeFiles = ['./src/*.coffee', '*.coffee'];
+coffeeFiles = ['./src/**/*.coffee', './*.coffee'];
 
 gulp.task('coffee', function() {
   return gulp.src(coffeeFiles, {
@@ -28,20 +28,9 @@ gulp.task('serve', ['watch'], function() {
   options = {
     script: './src/app.coffee',
     delayTime: 1,
-    watch: coffeeFiles
+    watch: './src'
   };
   return nodemon(options).on('restart', function(ev) {
     return console.log('Restarting...');
   });
-});
-
-gulp.task('inject', function() {
-  var options, wiredep;
-  wiredep = require('wiredep').stream;
-  options = {
-    bowerJson: require('./bower.json'),
-    directory: './public/lib',
-    ignorePath: '../../public'
-  };
-  return gulp.src('./src/views/.*pug').pipe(wiredep(options)).pipe(gulp.dest('./src/views'));
 });
